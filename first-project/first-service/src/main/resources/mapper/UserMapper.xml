@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.project.firstproject.mapper.UserMapper">
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+        id,name
+    </sql>
+
+    <select id="queryPage" resultType="com.example.project.projectcommon.pojo.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        <where>
+            <include refid="userWhereSql"/>
+        </where>
+    </select>
+
+    <sql id="userWhereSql">
+        <if test="pageQo.name != null and pageQo.name != ''">
+            AND name like CONCAT(CONCAT('%', #{pageQo.name}),'%')
+        </if>
+    </sql>
+</mapper>
